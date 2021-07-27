@@ -15,6 +15,21 @@ class AnimalToConsultorio extends Migration
     {
         Schema::create('animal_to_consultorio', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('animal_id');
+            $table->unsignedBigInteger('consultorio_id');
+
+            $table->foreign('animal_id')
+                ->references('id')
+                ->on('animals')
+                ->onDelete('cascade');
+
+            $table->foreign('consultorio_id')
+                ->references('id')
+                ->on('consultorios')
+                ->onDelete('cascade');
+
+
             $table->timestamps();
         });
     }

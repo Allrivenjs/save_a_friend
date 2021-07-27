@@ -24,7 +24,7 @@ class UserIsVeterinario extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-            
+
             $table->foreign('consultorio_id')
                 ->references('id')
                 ->on('consultorios')
