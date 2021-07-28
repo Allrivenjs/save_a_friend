@@ -25,7 +25,7 @@ class CreateConsultoriosTable extends Migration
             $table->string('Working_close');
             $table->string('Working_hours_total');
             $table->string('profile_photo_path', 2048);
-
+            $table->unsignedBigInteger('consultorio');
             $table->unsignedBigInteger('user_id')->nullable();
 
             $table->foreign('user_id')

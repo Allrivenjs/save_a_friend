@@ -20,7 +20,6 @@ class CreatePostsTable extends Migration
             $table->string('slug' );
 
             $table->text('text' )->nullable();
-            $table->string('profile_photo_path', 2048)->nullable();
 
             $table->unsignedBigInteger('type_post_id');
             $table->unsignedBigInteger('category_id');

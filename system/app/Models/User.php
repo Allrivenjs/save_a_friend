@@ -27,6 +27,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'lastname',
+        'location',
+        'has_consultorio',
+        'phone',
     ];
 
     /**
@@ -58,4 +62,22 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    //Relacion uno a muchos
+
+    public function posts(){
+        return $this->hasMany(posts::class);
+    }
+
+    public function animals(){
+        return $this->hasMany(Animal::class);
+    }
+
+
+    //relacion uno a uno polimorfica
+    public function consultorio(){
+        return $this->morphOne(Consultorio::class, 'consultorio');
+    }
+
+
 }
