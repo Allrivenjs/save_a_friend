@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostRequest;
+use App\Http\Resources\PostResource;
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
@@ -14,7 +18,12 @@ class PostController extends Controller
      */
     public function index()
     {
+        $Posts = Post::all()->sortByDesc('id');
 
+        return response([
+            'Posts' => PostResource::collection($Posts),
+            'message' => 'Retrieved  Successfully'
+        ], 200);
     }
 
     /**
@@ -23,9 +32,16 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
-        //
+        //dd(auth()->user()->name);
+        $post=Post::create($request->all());
+        $post->create(auth()->user()->id);
+        return response([
+            'Posts'=> PostResource::collection($post),
+            'message' => 'Retrieved  Successfully'
+        ], 200);
+
     }
 
     /**
