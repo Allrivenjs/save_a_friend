@@ -34,11 +34,16 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        //dd(auth()->user()->name);
-        $post=Post::create($request->all());
-        $post->create(auth()->user()->id);
+        $post=Post::create([
+            'name'=>$request->input('name'),
+            'slug'=>$request->input('slug'),
+            'text'=>$request->input('text'),
+            'type_post_id'=>$request->input('type_post_id'),
+            'category_id'=>$request->input('category_id'),
+            'user_id'=>auth()->user()->id,
+        ]);
         return response([
-            'Posts'=> PostResource::collection($post),
+            'Posts'=> new PostResource($post),
             'message' => 'Retrieved  Successfully'
         ], 200);
 
