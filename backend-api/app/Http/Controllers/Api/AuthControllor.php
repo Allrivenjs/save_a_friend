@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 
 class AuthControllor extends Controller
 {
-    public function Register(Request $request){
+    public function register(Request $request){
 
         $validatedData= $request->validate([
             'name' => 'required|max:255',
@@ -31,7 +34,7 @@ class AuthControllor extends Controller
 
 
 
-    public function Login(Request $request){
+    public function login(Request $request){
         $loginData = $request->validate([
             'email' => 'email|required',
             'password' => 'required'
@@ -46,5 +49,32 @@ class AuthControllor extends Controller
             'access_token' => $accessToken
         ]);
 
+    }
+
+    /**
+     * Logout api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request){
+        $devices =$request->input('devices');
+        $this->logoutMultiple($request->user(), $devices);
+    }
+    private function logoutMultiple(User $user, $devices = FALSE)
+    {
+        $accessTokens = $user->tokens();
+        if($devices == 'all') {}
+        else if ($devices == 'other') {
+            $accessTokens->where('id', '!=', $user->token()->id);
+        } else {
+            $accessTokens->where('id', '=', $user->token()->id);
+        }
+        $accessTokens = $accessTokens->get();
+        foreach ($accessTokens as $accessToken) {
+            $refreshToken = DB::table('oauth_refresh_tokens')
+                ->where('access_token_id', $accessToken->id)
+                ->update(['revoked' => TRUE]);
+            $accessToken->revoke();
+        }
     }
 }
