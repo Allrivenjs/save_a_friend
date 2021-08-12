@@ -18,10 +18,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $Posts = Post::all()->sortByDesc('id');
-
+       //$Posts = Post::all()->sortByDesc('id');
+        $Posts = Post::all()->first;
+        $Posts->image;
         return response([
-            'Posts' => PostResource::collection($Posts),
+            'Posts' => new PostResource($Posts),
             'message' => 'Retrieved  Successfully'
         ], 200);
     }
@@ -34,14 +35,14 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $post=Post::create([
+        $post=Post::create($request->all());
+        /*$post=Post::create([
             'name'=>$request->input('name'),
             'slug'=>$request->input('slug'),
             'text'=>$request->input('text'),
             'type_post_id'=>$request->input('type_post_id'),
             'category_id'=>$request->input('category_id'),
-            'user_id'=>auth()->user()->id,
-        ]);
+        ]);*/
         return response([
             'Posts'=> new PostResource($post),
             'message' => 'Retrieved  Successfully'
@@ -52,22 +53,25 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return response([
+            'post' => new PostResource($post),
+            'message' => 'Retrieved  Successfully'
+        ],200);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
         //
     }

@@ -4,12 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Post extends Model
 {
     use HasFactory;
     protected $table= "posts";
     protected  $guarded = ['id', 'created_at', 'updated_at'];
+
+    public static function boot(){
+
+        parent::boot();
+        static::creating(function ($post){
+            $post->user_id=Auth::id();
+        });
+    }
+
 
     public function getRouteKeyName()
     {
