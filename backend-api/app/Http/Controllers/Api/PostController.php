@@ -16,11 +16,18 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       //$Posts = Post::all()->sortByDesc('id');
-        $Posts = Post::all()->first;
-        $Posts->image;
+        $Posts = Post::all();
+        $numPost =$request->input('NumberPost');
+        if (!is_null($numPost)){
+            dd('a');
+        }else{
+            //$Posts = Post::all();
+        }
+     //  $Posts->sortByDesc('id');
+       // $Posts = Post::all()->first;
+        //$Posts->image;
         return response([
             'Posts' => new PostResource($Posts),
             'message' => 'Retrieved  Successfully'
