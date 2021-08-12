@@ -13,10 +13,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/register', [AuthControllor::class, 'Register']);
-Route::post('/login', [AuthControllor::class, 'Login']);
-Route::prefix('data')->group(function (){
+Route::post('register', [AuthControllor::class, 'register']);
+Route::post('login', [AuthControllor::class, 'login']);
+Route::post('logout/',[AuthControllor::class, 'logout'])->middleware('auth:api');
 
+
+Route::middleware('auth:api')->prefix('data')->group(function (){
     Route::get('/categories', function (){
         return response()->json([
             'Categories' =>\App\Models\Category::pluck('name', 'id'),
@@ -35,13 +37,11 @@ Route::prefix('data')->group(function (){
             'messages' => 'Retrieved  Successfully'
         ],200);
     });
-
-
 });
 
 
 
 Route::apiResource('/ceo',  CEOController::class )->middleware('auth:api');
 
-Route::apiResource('/posts',  PostController::class)->only('index', 'store')->middleware('auth:api');
+Route::apiResource('/posts',  PostController::class)->middleware('auth:api');
 
