@@ -7,7 +7,7 @@
         <title>jaja</title>
     </head>
    <body>
-   <div id="root"></div>
-{{--   <scritp src="{{mix('js/app.js')}}"></scritp>--}}
+    <div id="root"></div>
+    <script src="{{mix('/js/app.js')}}"></script>
    </body>
 </html>

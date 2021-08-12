@@ -15,7 +15,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('register', [AuthControllor::class, 'register']);
 Route::post('login', [AuthControllor::class, 'login']);
-Route::post('logout/',[AuthControllor::class, 'logout'])->middleware('auth:api');
+
 
 
 Route::middleware('auth:api')->prefix('data')->group(function (){
@@ -39,9 +39,10 @@ Route::middleware('auth:api')->prefix('data')->group(function (){
     });
 });
 
+Route::middleware('auth:api')->group(function (){
+    Route::post('logout/',[AuthControllor::class, 'logout']);
+    Route::apiResource('/ceo',  CEOController::class );
+    Route::apiResource('/posts',  PostController::class);
+});
 
-
-Route::apiResource('/ceo',  CEOController::class )->middleware('auth:api');
-
-Route::apiResource('/posts',  PostController::class)->middleware('auth:api');
 
