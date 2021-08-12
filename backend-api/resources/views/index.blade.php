@@ -7,7 +7,7 @@
         <title>Save a friend</title>
         <link rel="stylesheet" href="{{mix('/css/app.css')}}">
     </head>
-   <body>
+   <body class="bg-gray-700">
     <div id="root"></div>
     <script src="{{mix('/js/app.js')}}"></script>
 
