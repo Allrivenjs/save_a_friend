@@ -1,8 +1,5 @@
-import React from "react";
-import ReactDom from 'react-dom';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './routes/App'
 
-function App(){
-    return <h1 className="h1 font-bold">Laravel with React</h1>
-}
-
-ReactDom.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />,document.getElementById('root'));
