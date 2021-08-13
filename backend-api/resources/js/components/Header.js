@@ -2,7 +2,16 @@ import React from 'react';
 
 import { Link } from 'react-router-dom';
 
-const Header = () => {
+import { FiUser } from 'react-icons/fi';
+
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
+const Header = (props) => {
+
+    const userToken = cookies.get('userToken');
+
     return (
         <div className="header">
             <Link to="/">
@@ -12,19 +21,32 @@ const Header = () => {
             </Link>
             
             <div className="header__btns">
-                <Link to="/login">
-                    <button className="btn-header">
-                        Login
-                    </button>
-                </Link>
+                {userToken 
+                ?
+                <div>
+                    <Link to="/profile">
+                        <button className="btn-header flex justify-center items-center">
+                            <span> Profile </span>
+                            <FiUser className="ml-2 inline"/>
+                        </button>
+                    </Link>
+                </div>
+                : 
+                <div>
+                    <Link to="/login">
+                        <button className="btn-header">
+                            Login
+                        </button>
+                    </Link>
 
-                <Link to="/register">
-                    <button className="btn-header">
-                        Register
-                    </button>
-                </Link>
+                    <Link to="/register">
+                        <button className="btn-header">
+                            Register
+                        </button>
+                    </Link>
+                </div>
+                }
             </div>
-
         </div>
     )
 };

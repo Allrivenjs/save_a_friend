@@ -10,10 +10,6 @@ import Profile from '../containers/Profile';
 
 import Cookies from 'universal-cookie';
 
-const cookies = new Cookies();
-
-const userToken = null;
-
 const App = () => {
     return(
         <BrowserRouter>

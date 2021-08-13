@@ -17,13 +17,17 @@
 }
 
 .btn-header {
-    @apply font-mono text-base bg-blue-700 text-white ml-2 p-2 rounded-md shadow-md border hover:bg-opacity-80;
+    @apply btn ml-2;
 }
 
 /* UTILS */
 
 .btn {
-    @apply font-mono text-base bg-blue-700 text-white p-2 rounded-md shadow-md border hover:bg-opacity-80;
+    @apply font-mono text-base bg-blue-700 text-white p-2 rounded-md shadow-md border border-opacity-80 hover:bg-opacity-80;
+}
+
+.title {
+    @apply font-bold text-2xl;
 }
 
 /* LOGIN */
@@ -46,4 +50,34 @@
 
 .login__input {
     @apply p-2 shadow-md rounded-sm mb-2;
+}
+
+/* PROFILE PAGE */
+
+.profile-container{
+    @apply flex flex-col justify-center items-center w-screen bg-gray-100 shadow-md;
+}
+
+.profile-header {
+    @apply w-1/2 relative flex flex-col justify-center items-center;
+}
+
+.profile-header__banner {
+    @apply w-full h-72 bg-default-bg shadow-md rounded-lg;
+}
+
+.profile-header__avatar {
+    @apply absolute top-36 flex justify-center items-center flex-col;
+}
+
+.avatar-container {
+    @apply w-44 h-44 bg-white border-2 border-black rounded-full flex justify-center items-center;
+}
+
+.content {
+    @apply w-1/2 mt-4;
+}
+
+.card {
+    @apply bg-gray-100 w-full shadow-md rounded-lg p-4;
 }
