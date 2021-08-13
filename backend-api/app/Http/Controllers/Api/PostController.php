@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\Validator;
 class PostController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Posts a newly created resource in storage.
      *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function Posts(Request $request)
     {
-        $numberPosts=$request->input('numberPosts');
         $Posts= Post::join("images","posts.id", "=", "images.imageable_id")
-            ->limit($request)
+            ->limit($request->input('numberPosts'))
             ->get();
         return response([
             'Posts' => new PostResource($Posts),
@@ -38,13 +38,7 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $post=Post::create($request->all());
-        /*$post=Post::create([
-            'name'=>$request->input('name'),
-            'slug'=>$request->input('slug'),
-            'text'=>$request->input('text'),
-            'type_post_id'=>$request->input('type_post_id'),
-            'category_id'=>$request->input('category_id'),
-        ]);*/
+
         return response([
             'Posts'=> new PostResource($post),
             'message' => 'Retrieved  Successfully'
