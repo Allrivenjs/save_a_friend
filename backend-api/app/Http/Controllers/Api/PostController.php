@@ -7,6 +7,7 @@ use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
@@ -18,16 +19,10 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $Posts = Post::all();
-        $numPost =$request->input('NumberPost');
-        if (!is_null($numPost)){
-            dd('a');
-        }else{
-            //$Posts = Post::all();
-        }
-     //  $Posts->sortByDesc('id');
-       // $Posts = Post::all()->first;
-        //$Posts->image;
+        $numberPosts=$request->input('numberPosts');
+        $Posts= Post::join("images","posts.id", "=", "images.imageable_id")
+            ->limit($request)
+            ->get();
         return response([
             'Posts' => new PostResource($Posts),
             'message' => 'Retrieved  Successfully'
