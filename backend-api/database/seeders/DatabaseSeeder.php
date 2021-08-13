@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
 
         Storage::deleteDirectory('posts');
         Storage::makeDirectory('posts');
-
+        Storage::deleteDirectory('ProfileImage');
+        Storage::makeDirectory('ProfileImage');
 
         Category::factory(5)->create();
         Tag::factory(10)->create();

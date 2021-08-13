@@ -39,8 +39,6 @@ class PostController extends Controller
         $Posts=Post::with('tags', 'image', 'category', 'type_post')
             ->limit(1)
             ->get();
-
-
         return response([
             'Posts' => new PostResource($Posts),
             'message' => 'Retrieved  Successfully'
@@ -58,7 +56,7 @@ class PostController extends Controller
         $post=Post::create($request->all());
 
         if ($request->file('PostImage')){
-            $url= Storage::disk('public')->put('public/posts', $request->file('PostImage'));
+            $url= Storage::disk('public')->put('posts', $request->file('PostImage'));
             $post->image()->create([
                 'url' => $url
             ]);
@@ -88,7 +86,6 @@ class PostController extends Controller
      */
     public function show($post)
     {
-
         $Post= Post::with('tags', 'image', 'category', 'type_post')
             ->where('posts.id', $post)
             ->get();
