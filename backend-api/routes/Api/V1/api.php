@@ -19,8 +19,6 @@ Route::post('login', [AuthControllor::class, 'login']);
 
 
 Route::middleware('auth:api')->prefix('data')->group(function (){
-
-
     Route::get('/categories', function (){
         return response()->json([
             'Categories' =>\App\Models\Category::pluck('name', 'id'),
@@ -44,7 +42,7 @@ Route::middleware('auth:api')->prefix('data')->group(function (){
 Route::middleware('auth:api')->group(function (){
     Route::post('logout/',[AuthControllor::class, 'logout']);
  //   Route::apiResource('/ceo',  CEOController::class );
-    Route::apiResource('/post',  PostController::class);
+    Route::apiResource('/post',  PostController::class)->only('store' , 'show', 'update', 'destroy');
     Route::post('/posts', [PostController::class, 'Posts']);
 });
 

@@ -15,9 +15,12 @@ class Post extends Model
     public static function boot(){
 
         parent::boot();
-        static::creating(function ($post){
-            $post->user_id=Auth::id();
-        });
+        if(! \App::runningInConsole()) {
+             static::creating(function ($post){
+                 $post->user_id=Auth::id();
+             });
+
+        }
     }
 
 

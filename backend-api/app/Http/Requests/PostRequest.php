@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PostRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class PostRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return Auth::check();
     }
 
     /**
@@ -28,8 +29,10 @@ class PostRequest extends FormRequest
              'name' => 'required|max:255',
              'slug' => "required|unique:posts",
              'text'=> 'required',
+             'PostImage' => 'required|mimes:jpg,png,bmp,tif,jpeg',
              'type_post_id' => 'required',
              'category_id' => 'required',
+             'tags' => 'required'
         ];
         if ($post){
             $rules['slug'] = 'required|unique:posts,slug,'.$post->id;
