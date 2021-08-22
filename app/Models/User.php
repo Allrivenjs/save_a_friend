@@ -64,7 +64,7 @@ class User extends Authenticatable
 
     //relacion uno a uno polimorfica
     public function consultorio(){
-        return $this->morphOne(Consultorio::class, 'consultorio');
+
     }
 
 }

@@ -19,7 +19,7 @@ class Post extends Model
              static::creating(function ($post){
                  $post->user_id=Auth::id();
              });
-
+ 
         }
     }
 

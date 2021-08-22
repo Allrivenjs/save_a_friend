@@ -14,6 +14,7 @@ class AuthControllor extends Controller
 {
     public function register(Request $request){
 
+
         $validatedData= $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users',
@@ -32,12 +33,8 @@ class AuthControllor extends Controller
     }
 
     public function login(Request $request){
-        $loginData = $request->validate([
-            'email' => 'email|required',
-            'password' => 'required'
-        ]);
 
-        if(!auth()->attempt($loginData)){
+        if(!auth()->attempt(['email' => $request->email, 'password' => $request->password])){
             return response(['message' => 'Invalid Credentials']);
         }
         $accessToken = auth()->user()->createToken('authToken')->accessToken;

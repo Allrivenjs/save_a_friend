@@ -19,7 +19,7 @@ class Consultorio extends Model
     }
 
     function consultorio(){
-        return $this->morphTo();
+
     }
 
 }

@@ -7,6 +7,7 @@ use App\Http\Requests\PostRequest;
 use App\Http\Resources\PostResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -41,7 +42,8 @@ class PostController extends Controller
             ->get();
         return response([
             'Posts' => new PostResource($Posts),
-            'message' => 'Retrieved  Successfully'
+            'message' => 'Retrieved  Successfully',
+                ''=> auth()->id()
         ], 200);
     }
 
@@ -86,6 +88,14 @@ class PostController extends Controller
      */
     public function show($post)
     {
+
+        if(is_null(Post::find($post))){
+            return response([
+                'message' => 'Product not found.'
+            ]);
+        }
+
+
         $Post= Post::with('tags', 'image', 'category', 'type_post')
             ->where('posts.id', $post)
             ->get();
@@ -102,8 +112,9 @@ class PostController extends Controller
      * @param  \App\Models\Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostRequest $request, Post $post)
     {
+
         $post->update($request->all());
 
     }
@@ -114,8 +125,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+
+        $post->delete();
+
+        return response([
+            'message' => 'Retrieved  Successfully'
+        ],200);
     }
 }
