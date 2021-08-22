@@ -26,8 +26,8 @@ const Header = (props) => {
                 <div>
                     <Link to="/profile">
                         <button className="btn-header flex justify-center items-center">
-                            <span> Profile </span>
-                            <FiUser className="ml-2 inline"/>
+                            <FiUser />
+                            <span className="ml-2"> Profile </span>
                         </button>
                     </Link>
                 </div>

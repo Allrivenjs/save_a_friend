@@ -5,7 +5,7 @@
 /* HEADER */
 
 .header {
-    @apply bg-blue-400 p-2 shadow-md flex align-middle justify-between items-center;
+    @apply bg-blue-400 p-2 shadow-lg flex align-middle justify-between items-center;
 }
 
 .header__btns {
@@ -80,4 +80,20 @@
 
 .card {
     @apply bg-gray-100 w-full shadow-md rounded-lg p-4;
+}
+
+.profile-header__text {
+    @apply mt-16 flex justify-center items-center flex-col text-center;
+}
+
+.profile-header__menu {
+    @apply flex mb-2 justify-evenly w-full items-center;
+}
+
+.profile-header__menu-item-on {
+    @apply border-b-2 border-blue-400;
+}
+
+.profile-header__menu-btns {
+    @apply w-1/3 flex justify-evenly;
 }
