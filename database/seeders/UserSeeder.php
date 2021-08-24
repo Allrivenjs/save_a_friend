@@ -2,9 +2,13 @@
 
 namespace Database\Seeders;
 
+use App\Models\Image;
+use App\Models\Location;
+use App\Models\profile;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
 {
@@ -23,6 +27,16 @@ class UserSeeder extends Seeder
         ]);
        User::factory(99)->create();
 
+       $users = User::all();
+       foreach($users as $user){
+           $nameslug = "$user->lastname - $user->name";
+           profile::factory(1)->create([
+                'slug' => Str::of( $nameslug )->slug('-'),
+                'user_id' => $user->id,
+                'location_id' => Location::all()->random()->id
+
+           ]);
+       }
 
     }
 }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Location;
 use App\Models\Tag;
 use App\Models\Type_post;
 use Illuminate\Database\Seeder;
@@ -19,22 +20,15 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        Storage::deleteDirectory('posts');
-        Storage::makeDirectory('posts');
+        Storage::deleteDirectory('profile_cover');
+        Storage::makeDirectory('profile_cover');
         Storage::deleteDirectory('ProfileImage');
         Storage::makeDirectory('ProfileImage');
 
-        Category::factory(5)->create();
-        Tag::factory(10)->create();
-
-        Type_post::factory(4)->create();
+        Location::factory(5)->create();
 
         $this->call([
             UserSeeder::class,
-            AnimalSeeder::class,
-            ConsultorioSeeder::class,
-            PostSeeder::class
-
         ]);
     }
 }

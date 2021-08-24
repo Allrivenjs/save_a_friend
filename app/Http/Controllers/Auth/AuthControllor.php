@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Response;
 class AuthControllor extends Controller
 {
     public function register(Request $request){
-
-
         $validatedData= $request->validate([
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users',

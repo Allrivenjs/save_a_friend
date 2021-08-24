@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Type_post;
+use App\Models\profile;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class Type_postFactory extends Factory
+class profileFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Type_post::class;
+    protected $model = profile::class;
 
     /**
      * Define the model's default state.
@@ -22,7 +22,7 @@ class Type_postFactory extends Factory
     public function definition()
     {
         return [
-            'type_post' => $this->faker->randomElement(['Animal', 'search_a_friend','Picture','Complete']),
+            'profile_cover_photo_path' => './storage/profile_cover/' . $this->faker->image('public/storage/profile_cover', 640,480, null, false),
         ];
     }
 }

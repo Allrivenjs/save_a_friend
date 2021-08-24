@@ -2,18 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Category;
+use App\Models\Location;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 
-class CategoryFactory extends Factory
+class LocationFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Category::class;
+    protected $model = Location::class;
 
     /**
      * Define the model's default state.
@@ -22,10 +21,11 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
-        $name=$this->faker->unique()->name();
         return [
-            'name' => $name,
-            'slug' => Str::slug($name),
+            'city' => $this->faker->city(),
+            'country' => $this->faker->country(),
+            'street' => $this->faker->streetAddress(),
+            'zipcode' => $this->faker->countryCode(),
         ];
     }
 }

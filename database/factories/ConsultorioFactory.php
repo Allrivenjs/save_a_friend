@@ -25,9 +25,6 @@ class ConsultorioFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'phone' => $this->faker->phoneNumber(),
-            'location' => $this->faker->locale(),
-            'city' => $this->faker->city(),
-            'country' => $this->faker->country(),
             'user_id' => User::all()->random()->id,
         ];
     }

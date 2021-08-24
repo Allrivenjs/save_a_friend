@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $user=User::whereId(auth()->id())
-            ->with('posts','animals')
+            ->with('profile')
             ->get();
 
         return response([

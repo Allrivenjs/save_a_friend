@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
+class CreateProfilesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,33 +13,24 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('profiles', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique()->nullable();
+            $table->string('profile_cover_photo_path', 2048)->nullable();
 
-            $table->string('name' );
-            $table->string('slug' );
-
-            $table->text('text' )->nullable();
-
-            $table->unsignedBigInteger('type_post_id');
-            $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('user_id');
 
-            $table->foreign('type_post_id')
-                ->references('id')
-                ->on('type_post')
-                ->onDelete('cascade');
+            $table->unsignedBigInteger('location_id')->nullable();
 
-            $table->foreign('category_id')
+            $table->foreign('location_id')
                 ->references('id')
-                ->on('category')
+                ->on('location')
                 ->onDelete('cascade');
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-
 
             $table->timestamps();
         });
@@ -52,6 +43,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('profiles');
     }
 }

@@ -22,11 +22,11 @@ class CreateAnimalsTable extends Migration
             $table->string('sex');
             $table->string('is_adopte');
 
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('profile_id');
 
-            $table->foreign('user_id')
+            $table->foreign('profile_id')
                 ->references('id')
-                ->on('users')
+                ->on('profiles')
                 ->onDelete('cascade');
 
             $table->timestamps();

@@ -15,8 +15,8 @@ class Animal extends Model
     protected  $guarded = ['id', 'created_at', 'updated_at'];
 
     // uno a muchos inversa
-    function User(){
-        return $this->belongsTo(User::class);
+    function perfile(){
+        return $this->belongsTo(profile::class);
     }
 
 

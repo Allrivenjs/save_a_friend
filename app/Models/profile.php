@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Consultorio extends Model
+class profile extends Model
 {
     use HasFactory;
-
-    protected $table= "consultorios";
-    protected  $guarded = ['id', 'created_at', 'updated_at'];
+    protected $table = "profiles";
 
 
-    //relacion muchos a muchos
     function location(){
         return $this->belongsTo(Location::class);
     }
 
-
+    function user(){
+        return $this->belongsTo(User::class);
+    }
 }
