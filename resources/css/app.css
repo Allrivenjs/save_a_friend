@@ -37,7 +37,7 @@
 }
 
 .login__form {
-    @apply flex flex-col;
+    @apply flex flex-col justify-center items-center;
 }
 
 .login {
