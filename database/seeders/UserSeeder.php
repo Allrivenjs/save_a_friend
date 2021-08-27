@@ -29,12 +29,11 @@ class UserSeeder extends Seeder
 
        $users = User::all();
        foreach($users as $user){
-           $nameslug = "$user->lastname - $user->name";
+           $nameslug = " $user->name - $user->lastname";
            profile::factory(1)->create([
                 'slug' => Str::of( $nameslug )->slug('-'),
                 'user_id' => $user->id,
                 'location_id' => Location::all()->random()->id
-
            ]);
        }
 

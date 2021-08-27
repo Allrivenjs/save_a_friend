@@ -5,23 +5,29 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Response;
+
+use Illuminate\Support\Str;
 
 class AuthControllor extends Controller
 {
     public function register(Request $request){
+
         $validatedData= $request->validate([
             'name' => 'required|max:255',
+            'lastname' => 'required|max:244',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed'
         ]);
 
         $validatedData['password'] = Hash::make($request->password);
         $user = User::Create($validatedData);
-
+        $user->profile->create([
+           'slug' => Str::of($user->name .'-'. $user->lastname)->slug('-'),
+           'user_id' => $user->id,
+        ]);
         $accessToken = $user->createToken('authToken')->accessToken;
 
         return response([
@@ -29,6 +35,8 @@ class AuthControllor extends Controller
             'access_token' => $accessToken
         ]);
     }
+
+
 
     public function login(Request $request){
 

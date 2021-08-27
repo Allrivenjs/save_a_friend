@@ -3,13 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\UserResource;
+use App\Models\profile;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use function PHPUnit\Framework\isNull;
-use function Symfony\Component\String\u;
 
-class UserController extends Controller
+
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,33 +17,17 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user=User::whereId(auth()->id())
-            ->with('profile')
+
+        $profile= profile::where('user_id', '=', auth()->id())
+            ->with('user', 'location')
             ->get();
 
         return response([
-            'User' =>new UserResource($user),
+            'Profile' =>new UserResource($profile),
             'message' => 'Retrieved  Successfully'
         ],200);
 
     }
-
-
-
-    public function Alluser(){
-
-        $users= User::where('id', '>', '0')
-            ->with('posts','animals')
-            ->get();
-
-
-        return response([
-            'Users' => new UserResource($users),
-            'message' => 'Retrieved  Successfully'
-        ],200);
-    }
-
-
     /**
      * Display the specified resource.
      *
@@ -53,9 +36,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user=User::find($id);
+        $profile= profile::where('user_id', '=', auth()->id())
+            ->with('user', 'location')
+            ->get();
 
-        if (!isset($user))  //agregar que el usuario sea admin
+        if (!isset($profile))  //agregar que el usuario sea admin
         {
             return response([
                 'message' => 'User not exist'
@@ -63,7 +48,7 @@ class UserController extends Controller
         }
 
         return response([
-            'Users' => $user,
+            'Users' => $profile,
             'message' => 'Retrieved  Successfully'
         ],200);
 
