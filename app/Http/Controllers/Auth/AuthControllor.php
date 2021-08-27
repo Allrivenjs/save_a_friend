@@ -24,14 +24,16 @@ class AuthControllor extends Controller
 
         $validatedData['password'] = Hash::make($request->password);
         $user = User::Create($validatedData);
-        $user->profile->create([
+        $user->profile()->create([
            'slug' => Str::of($user->name .'-'. $user->lastname)->slug('-'),
            'user_id' => $user->id,
         ]);
         $accessToken = $user->createToken('authToken')->accessToken;
-
+        $profile= User::whereId($user->id)
+            ->with('profile')
+            ->get();
         return response([
-            'user' => $user,
+            'profile' =>$profile,
             'access_token' => $accessToken
         ]);
     }
@@ -44,8 +46,12 @@ class AuthControllor extends Controller
             return response(['message' => 'Invalid Credentials']);
         }
         $accessToken = auth()->user()->createToken('authToken')->accessToken;
+
+        $profile= User::whereId( auth()->id())
+            ->with('profile')
+            ->get();
         return response([
-            'user' => auth()->user(),
+            'profile' =>$profile,
             'access_token' => $accessToken
         ]);
 

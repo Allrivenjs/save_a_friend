@@ -9,6 +9,7 @@ class profile extends Model
 {
     use HasFactory;
     protected $table = "profiles";
+    protected  $guarded = ['id', 'created_at', 'updated_at'];
 
 
     function location(){
