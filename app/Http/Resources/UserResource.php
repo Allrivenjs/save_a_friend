@@ -16,9 +16,6 @@ class UserResource extends JsonResource
     {
         return [
             'data' => parent::toArray($request),
-            'prueba' =>[
-                'self' =>'primiparos companie'
-            ]
         ];
     }
 }

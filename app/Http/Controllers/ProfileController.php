@@ -20,7 +20,7 @@ class ProfileController extends Controller
         $profile= profile::where('user_id', '=', auth()->id())
             ->with('user', 'location')
             ->get();
-        
+
         return response([
             'Profile' =>UserResource::collection($profile),
             'message' => 'Retrieved  Successfully'
