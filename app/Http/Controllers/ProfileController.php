@@ -17,11 +17,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-
         $profile= profile::where('user_id', '=', auth()->id())
             ->with('user', 'location')
             ->get();
-
         return response([
             'Profile' =>new UserResource($profile),
             'message' => 'Retrieved  Successfully'
