@@ -5,10 +5,15 @@ import Axios from 'axios';
 
 import Cookies from 'universal-cookie';
 
+import Loading from '../components/Loading';
+
 const cookies = new Cookies();
 
 const Login = (props) => {
 
+    const [loading, setLoading] = useState(false);
+
+    // Estado de usuario
     const [user, setUser] = useState({
         email: '',
         password: '',
@@ -16,6 +21,7 @@ const Login = (props) => {
 
     // Función para logearse
     const login = async (user) => {
+        setLoading(true);
         try {
             const userData = await Axios.post('/api/v1/login', {
                 email: user.email,
@@ -24,6 +30,7 @@ const Login = (props) => {
             // Si la respuesta viene sin token, entonces algo salio mal con los datos
             if(!userData.data.access_token) {
                 alert("Invalid credentials");
+                setLoading(false);
             } else {
                 // Si el token existe, guardamos en las cookies el valor del token
                 cookies.set( 'userToken', userData.data.access_token, { path: '/' } );
@@ -33,6 +40,7 @@ const Login = (props) => {
             console.log(userData);
         } catch(error) {    // Capturar errores de login
             console.error("Login error:", error);
+            setLoading(false);
         }
     };
 
@@ -72,10 +80,18 @@ const Login = (props) => {
                             placeholder="Password"
                             onChange={handleChange}
                         ></input>
-                        <button
-                            type="submit" 
-                            className="btn"
-                        >Login</button>
+
+                        { loading 
+                            ? 
+                            <Loading></Loading>
+                            :
+                            <button
+                                type="submit" 
+                                className="btn w-full"
+                            >Login
+                            </button>
+                        }
+                    
                     </form>
                 </div>
             </div>
