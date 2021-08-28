@@ -17,7 +17,7 @@ Route::middleware('logroute')->group(function (){
 
         Route::middleware('auth:api')->group(function (){
         Route::apiResource('/profile', ProfileController::class)->except('store');
-      // Route::post('/allusers', [ProfileController::class, 'Alluser']);
+        Route::get('/profiles', [ProfileController::class, 'getAllProfile']);
         Route::post('logout/',[AuthControllor::class, 'logout']);
      //   Route::apiResource('/ceo',  CEOController::class );
      //   Route::apiResource('/post',  PostController::class)->only('store' , 'show', 'update', 'destroy');

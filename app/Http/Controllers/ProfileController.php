@@ -27,6 +27,19 @@ class ProfileController extends Controller
         ],200);
 
     }
+
+    public function getAllProfile(){
+
+        $profiles = profile::with('user', 'location')
+            ->get();
+
+        return response([
+            'Profiles' =>UserResource::collection($profiles),
+            'message' => 'Retrieved  Successfully'
+        ],200);
+
+    }
+
     /**
      * Display the specified resource.
      *
