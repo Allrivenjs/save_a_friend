@@ -21,7 +21,7 @@ class ProfileController extends Controller
             ->with('user', 'location')
             ->get();
         return response([
-            'Profile' =>new UserResource($profile),
+            'Profile' => UserResource::collection($profile),
             'message' => 'Retrieved  Successfully'
         ],200);
 
