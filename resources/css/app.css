@@ -5,7 +5,7 @@
 /* HEADER */
 
 .header {
-    @apply bg-blue-400 p-2 shadow-lg flex align-middle justify-between items-center;
+    @apply bg-blue-400 p-2 shadow-lg flex align-middle justify-between items-center absolute w-full z-50;
 }
 
 .header__btns {
@@ -33,7 +33,7 @@
 /* LOGIN */
 
 .login__container {
-    @apply flex justify-center w-full h-full;
+    @apply flex justify-center items-center w-full h-screen;
 }
 
 .login__form {
@@ -63,7 +63,11 @@
 }
 
 .profile-header__banner {
-    @apply w-full h-72 bg-default-bg shadow-md rounded-lg;
+    @apply w-full h-72 shadow-md rounded-lg;
+}
+
+.profile-header__banner-default {
+    @apply profile-header__banner bg-default-bg;
 }
 
 .profile-header__avatar {
@@ -72,6 +76,10 @@
 
 .avatar-container {
     @apply w-44 h-44 bg-white border-2 border-black rounded-full flex justify-center items-center;
+}
+
+.avatar-photo {
+    @apply w-full h-full object-cover rounded-full;
 }
 
 .content {
