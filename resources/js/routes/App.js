@@ -6,9 +6,7 @@ import Dashboard from '../containers/Dashboard';
 
 import Home from '../containers/Home';
 import Login from '../containers/Login';
-import Profile from '../containers/Profile';
-
-import Cookies from 'universal-cookie';
+import ProfileContainer from '../containers/ProfileContainer';
 
 const App = () => {
     return(
@@ -17,7 +15,7 @@ const App = () => {
                 <Switch>
                     <Route exact path="/" component={Home} />
                     <Route exact path="/login" component={Login} />
-                    <Route exact path="/profile" component={Profile} />
+                    <Route exact path="/profile" component={ProfileContainer} />
                     <Route exact path="/dash" component={Dashboard} />
                 </Switch>
             </Layout>

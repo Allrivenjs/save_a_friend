@@ -9,7 +9,7 @@ import HandleProfileSection from '../components/HandleProfileSection';
 
 const cookies = new Cookies();
 
-const Profile = () => {
+const Profile = ( props ) => {
     // Manejar la sección de los botones
     const [section, setSection] = useState('posts');
 
@@ -30,18 +30,27 @@ const Profile = () => {
             <div className="flex flex-col justify-center items-center">
                 <div className="profile-container">
                     <div className="profile-header">
-                        <div className="profile-header__banner">
-                            
-                        </div>
+                        {props.coverPhoto
+                            ?
+                                <img className="profile-header__banner" src={props.coverPhoto} alt="cover photo"/>
+                            :
+                                <div className="profile-header__banner-default"> </div> 
+                        }
                         <div className="profile-header__avatar">
-                            {/* <img src="" className="profile-header__photo"></img> */}
-                            <div className="avatar-container">    
-                                <FiUser className="text-6xl" />
+                            <div className="avatar-container">
+
+                                {props.profilePhoto 
+                                    ? 
+                                        <img className="avatar-photo" src={props.profilePhoto} alt="profile photo"/>
+                                    :
+                                        <FiUser className="text-6xl" />
+                                }   
+
                             </div>
-                            <h1 className="title">Jaime Andres</h1>
+                            <h1 className="title">{props.name} {props.lastname}</h1>
                         </div>
                         <div className="profile-header__text">
-                            <p className="mb-2 text-gray-600">Some description</p>
+                            <p className="mb-2 text-gray-600"> Some description </p>
                             <button className="mb-4 text-sm text-blue-400 underline" >Edit</button>
                         </div>
                         <hr className="w-full mb-2"/>
