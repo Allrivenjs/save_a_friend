@@ -9,7 +9,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::post('register', [AuthControllor::class, 'register']);
+/*Route::post('register', [AuthControllor::class, 'register']);
 
 Route::middleware('logroute')->group(function (){
 
@@ -21,10 +21,10 @@ Route::middleware('logroute')->group(function (){
         Route::get('/profiles', [ProfileController::class, 'getAllProfile']);
         Route::post('logout/',[AuthControllor::class, 'logout']);
         Route::apiResource('/user',  UserController::class);
-     // Route::apiResource('/ceo',  CEOController::class );
-    //  Route::post('/posts', [PostController::class, 'Posts']);
+        Route::apiResource('/ceo',  CEOController::class );
+        Route::post('/posts', [PostController::class, 'Posts']);
     });
 
 
-});
+});*/
 
