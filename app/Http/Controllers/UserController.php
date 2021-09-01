@@ -24,8 +24,14 @@ class UserController extends Controller
             return response()->json(['error'=>'could_not_create_token'],500);
         }
         $user = JWTAuth::user();
-        return response()->json(new UserResource($user, $token),201);
+        return response()->json([
+            'Login' => [
+                'User' => new UserResource($user),
+                'token' => $token
+            ]
+        ],201);
     }
+
     public function register(Request $request){
         $validator = Validator::make($request->all(),[
             'name'=>'required|string|max:255',
@@ -42,9 +48,13 @@ class UserController extends Controller
         ]);
         $token = JWTAuth::fromUser($user);
         return response()->json([
-            new UserResource($user, $token)
+            'Register' =>[
+            'User'=>new UserResource($user),
+            'token' =>  $token
+            ]
         ],201);
     }
+
     public function getAuthenticatedUser(){
         try {
             $user =JWTAuth::parseToken()->authenticate();
@@ -60,6 +70,7 @@ class UserController extends Controller
         }
         return response()->json(new UserResource($user), 200);
     }
+
     public function logout()
     {
         try {
