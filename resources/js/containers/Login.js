@@ -67,36 +67,36 @@ const Login = (props) => {
                         <input
                             className="login__input"
                             type="email"
-                            name="email" 
+                            name="email"
                             placeholder="Email"
                             onChange={handleChange}
                         ></input>
-    
+
                         <label htmlFor="password"></label>
                         <input
                             className="login__input"
                             type="password"
-                            name="password" 
+                            name="password"
                             placeholder="Password"
                             onChange={handleChange}
                         ></input>
 
-                        { loading 
-                            ? 
+                        { loading
+                            ?
                             <Loading></Loading>
                             :
                             <button
-                                type="submit" 
+                                type="submit"
                                 className="btn w-full"
                             >Login
                             </button>
                         }
-                    
+
                     </form>
                 </div>
             </div>
         );
-    } else 
+    } else
     {
         return <Redirect to="/profile" />;
     }

@@ -27,7 +27,7 @@ class logRoute
               'BODY'=>$request->all(),
               'RESPONSE' => $response->getContent(),
               'IP' => $request->ip(),
-              'User' => Auth::user()->getAuthIdentifier()
+              //'User' => Auth::user()->getAuthIdentifier()
             ];
             Log::info(json_encode($log));
         }
