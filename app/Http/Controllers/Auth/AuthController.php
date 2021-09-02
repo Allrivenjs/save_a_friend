@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\AuthRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
@@ -34,8 +32,6 @@ class AuthController extends Controller
         ],201);
     }
 
-
-
     public function register(Request $request){
         $validator = Validator::make($request->all(),[
             'name'=>'required|string|max:255',
@@ -45,6 +41,7 @@ class AuthController extends Controller
             'email'=>'required|string|email|max:255|unique:users|confirmed',
             'password'=>'required|string|min:6',
         ]);
+
         if ($validator->fails()){
             return response()->json($validator->errors(),400);
         }
@@ -55,19 +52,11 @@ class AuthController extends Controller
             'password' => Hash::make($request->get('password')),
             'birthday'=> $request->get('birthday'),
         ]);
-        $random = rand(0, 100);
-        $user->profile()->create([
-            'slug' => Str::of($user->name .'-'. $user->lastname.'-'.$random)->slug('-'),
-            'user_id' => $user->id,
-        ]);
-        $userData=User::with('profile')
-            ->whereId($user->id)
-            ->get();
-
+        $user->profile;
         $token = JWTAuth::fromUser($user);
         return response()->json([
             'Register' =>[
-            'User'=>new UserResource($userData),
+            'User'=>new UserResource($user),
             'token' =>  $token
             ]
         ],201);

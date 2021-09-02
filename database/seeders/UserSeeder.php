@@ -22,10 +22,12 @@ class UserSeeder extends Seeder
         User::create([
             'name'=>'ADMIN',
             'lastname'=>'el admin',
+            'role' => \App\Models\User::ROLE_SUPERADMIN,
+            'birthday'=> '0001-01-01',
             'email'=>'admin@gmail.com',
             'password' => Hash::make('admin')
         ]);
-       User::factory(99)->create();
+      // User::factory(99)->create();
 
        $users = User::all();
        foreach($users as $user){

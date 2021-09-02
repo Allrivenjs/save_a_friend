@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->string('email')->unique();
             $table->date('birthday');
+            $table->string('role')->default(\App\Models\User::ROLE_USER);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('profile_photo_path', 2048)->nullable();

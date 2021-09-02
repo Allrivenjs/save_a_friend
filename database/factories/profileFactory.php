@@ -22,6 +22,7 @@ class profileFactory extends Factory
     public function definition()
     {
         return [
+            'description'=> $this->faker->text(100),
             'profile_cover_photo_path' => './storage/profile_cover/' . $this->faker->image('public/storage/profile_cover', 640,480, null, false),
         ];
     }

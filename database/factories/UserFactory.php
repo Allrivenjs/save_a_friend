@@ -28,6 +28,7 @@ class UserFactory extends Factory
             'name' => $this->faker->name(),
             'lastname'=>$this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail(),
+            'birthday' => $this->faker->date('Y-m-d'),
             'profile_photo_path' => './storage/ProfileImage/' . $this->faker->image('public/storage/ProfileImage', 640,480, null, false),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
