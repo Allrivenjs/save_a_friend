@@ -1,17 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\AuthRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class UserController extends Controller
+class AuthController extends Controller
 {
     public function authenticate(Request $request){
         $credentials=$request->only('email','password');
@@ -35,21 +37,32 @@ class UserController extends Controller
     public function register(Request $request){
         $validator = Validator::make($request->all(),[
             'name'=>'required|string|max:255',
+            'lastname'=>'required|string|max:255',
+            'phone'=>'required|number|max:255',
             'email'=>'required|string|email|max:255|unique:users',
             'password'=>'required|string|min:6|confirmed',
         ]);
         if ($validator->fails()){
-            return response()->json($validator->errors()->toJson(),400);
+            return response()->json($validator->errors(),400);
         }
         $user = User::create([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
         ]);
+        $random = rand(0, 100);
+        $user->profile()->create([
+            'slug' => Str::of($user->name .'-'. $user->lastname.'-'.$random)->slug('-'),
+            'user_id' => $user->id,
+        ]);
+        $userData=User::with('profile')
+            ->whereId($user->id)
+            ->get();
+
         $token = JWTAuth::fromUser($user);
         return response()->json([
             'Register' =>[
-            'User'=>new UserResource($user),
+            'User'=>new UserResource($userData),
             'token' =>  $token
             ]
         ],201);
