@@ -82,7 +82,7 @@ class UserController extends Controller
                 "status" => "success",
                 "message" => "User successfully logged out."
             ], 200)
-                ->withCookie('token', null,
+               /* ->withCookie('token', null,
                     config('jwt.ttl'),
                     '/',
                     null,
@@ -90,7 +90,7 @@ class UserController extends Controller
                     true,
                     false,
                     config('app.env') !== 'local' ? 'None' : 'Lax'
-                );
+                )*/;
         } catch (JWTException $e) {
             // something went wrong whilst attempting to encode the token
             return response()->json(["message" => "No se pudo cerrar la sesión."], 500);
