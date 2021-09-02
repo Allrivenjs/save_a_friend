@@ -6,5 +6,5 @@
 composer install
 npm install
 php artisan key:generate
-php artisan passport:install
+php .\artisan jwt:secret
 php artisan r:l
