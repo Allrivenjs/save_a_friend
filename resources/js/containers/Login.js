@@ -28,12 +28,12 @@ const Login = (props) => {
                 password: user.password,
             });
             // Si la respuesta viene sin token, entonces algo salio mal con los datos
-            if(!userData.data.access_token) {
+            if(!userData.data.Login.token) {
                 alert("Invalid credentials");
                 setLoading(false);
             } else {
                 // Si el token existe, guardamos en las cookies el valor del token
-                cookies.set( 'userToken', userData.data.access_token, { path: '/' } );
+                cookies.set( 'userToken', userData.data.Login.token, { path: '/' } );
                 props.history.push('/profile');
                 window.location.reload(false);
             }
