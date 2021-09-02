@@ -11,7 +11,13 @@ const ProfileContainer = () => {
 
     const [loading, setLoading] = useState(false);
 
-    const [profileData, setProfileData] = useState({ name: null, lastname: null, profilePhoto: null, coverPhoto: null });
+    const [profileData, setProfileData] = useState({ 
+        name: null, 
+        lastname: null, 
+        profilePhoto: null, 
+        coverPhoto: null,
+        description: null,
+    });
 
     const getProfileInfo = async () => {
         setLoading(true);
@@ -23,6 +29,8 @@ const ProfileContainer = () => {
                 }
             });
 
+            console.log(data);
+
             let profileData = data.data.Profile[0].data;
             let userData = profileData.user;
 
@@ -30,7 +38,8 @@ const ProfileContainer = () => {
                 name: userData.name,
                 lastname: userData.lastname,
                 profilePhoto: userData.profile_photo_path,
-                coverPhoto: profileData.profile_cover_photo_path
+                coverPhoto: profileData.profile_cover_photo_path,
+                description: profileData.description,
             });
 
             setLoading(false);
@@ -58,6 +67,7 @@ const ProfileContainer = () => {
                 lastname = {profileData.lastname}
                 profilePhoto = {profileData.profilePhoto}
                 coverPhoto = {profileData.coverPhoto}
+                description = {profileData.description}
             >
             </Profile>
         );

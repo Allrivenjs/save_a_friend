@@ -30,6 +30,10 @@
     @apply font-bold text-2xl;
 }
 
+.avatar {
+    @apply bg-white border-2 border-black rounded-full flex justify-center items-center;
+}
+
 /* LOGIN */
 
 .login__container {
@@ -74,8 +78,10 @@
     @apply absolute top-36 flex justify-center items-center flex-col;
 }
 
+/* AVATAR PAGE */
+
 .avatar-container {
-    @apply w-44 h-44 bg-white border-2 border-black rounded-full flex justify-center items-center;
+    @apply w-44 h-44 avatar;
 }
 
 .avatar-photo {
@@ -104,4 +110,26 @@
 
 .profile-header__menu-btns {
     @apply w-1/3 flex justify-evenly;
+}
+
+/* POST STYLES */
+
+.post {
+    @apply card lg:w-4/12;
+}
+
+.status__header {
+    @apply flex items-center;
+}
+
+.avatar-status {
+    @apply w-10 h-10 avatar mr-3;
+}
+
+.status__header-user {
+    @apply font-semibold;
+}
+
+.status__header-like {
+    @apply flex items-center;
 }
