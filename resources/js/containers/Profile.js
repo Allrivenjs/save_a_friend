@@ -50,7 +50,7 @@ const Profile = ( props ) => {
                             <h1 className="title">{props.name} {props.lastname}</h1>
                         </div>
                         <div className="profile-header__text">
-                            <p className="mb-2 text-gray-600"> Some description </p>
+                            <p className="mb-2 text-gray-600"> {props.description} </p>
                             <button className="mb-4 text-sm text-blue-400 underline" >Edit</button>
                         </div>
                         <hr className="w-full mb-2"/>
