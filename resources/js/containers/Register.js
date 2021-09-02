@@ -4,36 +4,60 @@ import Loading from '../components/Loading';
 
 import Axios from 'axios';
 
-const Register = () => {
+import Cookies from 'universal-cookie';
+
+
+const cookies = new Cookies();
+
+const Register = (props) => {
 
     const [loading, setLoading] = useState(false);
 
-    // Estado de usuario
+    // Estado de usuario al registrarse
     const [user, setUser] = useState({
         name: '',
         lastname: '',
         phone: '',
         email: '',
+        email_confirmation: '',
         password: '',
-        password_confirmation: '',
+        birthday: '',
     });
 
+    // Funcion para cambiar los inputs values 
     const handleChange = (e) => {
         setUser({
             ...user, [e.target.name]: e.target.value
         });
     };
 
+    // Funcion para el form
     const handleSubmit = (e) =>{
         e.preventDefault();
+        console.log(user);
         register(user);
     }
 
-    const register = () => {
+    // Función para registrarse
+    const register = async () => {
         try {
+            // post request
+            const userData = await Axios.post('/api/v1/register', {
+                name: user.name,
+                lastname: user.lastname,
+                phone: user.phone,
+                email: user.email,
+                email_confirmation: user.email,
+                password: user.password,
+                birthday: user.birthday,
+            });
 
+            cookies.set( 'userToken', userData.data.Register.token, { path: '/' } );
+            props.history.push('/profile');
+            window.location.reload(false);
         } catch (e) {
             console.error("Error in register form: ", e);
+            console.log(e.response.data);
         }
     };
 
@@ -73,6 +97,16 @@ const Register = () => {
                             autoComplete="off"
                         ></input>
 
+                        <label htmlFor="birthday"></label>
+                        <input
+                            className="login__input"
+                            type="date"
+                            name="birthday"
+                            placeholder="Birthday"
+                            onChange={handleChange}
+                            autoComplete="off"
+                        ></input>
+
                         <label htmlFor="email"></label>
                         <input
                             className="login__input"
@@ -87,7 +121,7 @@ const Register = () => {
                         <input
                             className="login__input"
                             type="email_confirmation"
-                            name="email_confirmation"
+                            name="email"
                             placeholder="Confirm your email"
                             onChange={handleChange}
                             autoComplete="off"

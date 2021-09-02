@@ -37,7 +37,7 @@ const Login = (props) => {
                 props.history.push('/profile');
                 window.location.reload(false);
             }
-            console.log(userData);
+            // console.log(userData);
         } catch(error) {    // Capturar errores de login
             console.error("Login error:", error);
             setLoading(false);
