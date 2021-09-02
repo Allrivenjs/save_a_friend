@@ -14,9 +14,9 @@ class AddDescriptionToProfileTable extends Migration
     public function up()
     {
         Schema::table('profiles', function (Blueprint $table) {
-            $table->after('slug', function ($table){
+           /* $table->after('slug', function ($table){
                 $table->string('description',155)->nullable();
-            });
+            });*/
         });
     }
 
@@ -28,7 +28,7 @@ class AddDescriptionToProfileTable extends Migration
     public function down()
     {
         Schema::table('profiles', function (Blueprint $table) {
-            $table->dropColumn('description');
+           // $table->dropColumn('description');
         });
     }
 }

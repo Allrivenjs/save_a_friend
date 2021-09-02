@@ -34,21 +34,26 @@ class AuthController extends Controller
         ],201);
     }
 
+
+
     public function register(Request $request){
         $validator = Validator::make($request->all(),[
             'name'=>'required|string|max:255',
             'lastname'=>'required|string|max:255',
-            'phone'=>'required|number|max:255',
-            'email'=>'required|string|email|max:255|unique:users',
-            'password'=>'required|string|min:6|confirmed',
+            'birthday' =>'required|date',
+            //'phone'=>'required|number|max:255',
+            'email'=>'required|string|email|max:255|unique:users|confirmed',
+            'password'=>'required|string|min:6',
         ]);
         if ($validator->fails()){
             return response()->json($validator->errors(),400);
         }
         $user = User::create([
             'name' => $request->get('name'),
+            'lastname' => $request->get('lastname'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
+            'birthday'=> $request->get('birthday'),
         ]);
         $random = rand(0, 100);
         $user->profile()->create([
